@@ -35,10 +35,9 @@ class StudyAnonymizer {
 public:
   StudyAnonymizer() = default;
   StudyAnonymizer(const std::string &pseudoname_prefix,
-                  E_PSEUDONAME_TYPE pseudoname_type = P_RANDOM_STRING,
-                  E_FILENAMES filename_type = F_HEX)
+                  E_PSEUDONAME_TYPE pseudoname_type = P_RANDOM_STRING)
       : m_pseudoname_prefix{pseudoname_prefix},
-        m_pseudoname_type{pseudoname_type}, m_filename_type{filename_type} {};
+        m_pseudoname_type{pseudoname_type} {};
 
   ~StudyAnonymizer() = default;
 

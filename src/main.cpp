@@ -89,7 +89,7 @@ int main(int argc, char *argv[]) {
   std::string opt_inDirectory{};
 
   // optional pseudoname params
-  std::string opt_anonymizedPrefix{};
+  std::string opt_pseudonamePrefix{};
   E_PSEUDONAME_TYPE opt_pseudonameType = P_RANDOM_STRING;
   std::string opt_pseudonameFile{};
 
@@ -178,7 +178,7 @@ int main(int argc, char *argv[]) {
     OFLog::configureFromCommandLine(cmd, app);
 
     if (cmd.findOption("--prefix"))
-      app.checkValue(cmd.getValue(opt_anonymizedPrefix));
+      app.checkValue(cmd.getValue(opt_pseudonamePrefix));
 
     cmd.beginOptionBlock();
     if (cmd.findOption("--pseudoname-random"))
@@ -268,8 +268,7 @@ int main(int argc, char *argv[]) {
   std::vector<std::filesystem::path> studyDirs =
       findStudyDirectories(opt_inDirectory);
 
-  StudyAnonymizer anonymizer{opt_anonymizedPrefix, opt_pseudonameType,
-                             opt_filenameType};
+  StudyAnonymizer anonymizer{opt_pseudonamePrefix, opt_pseudonameType};
 
   if (anonymizer.m_pseudoname_type == P_INTEGER_ORDER) {
     fmt::print("using pseudonames as integer count order\n");
@@ -302,8 +301,8 @@ int main(int argc, char *argv[]) {
              fmt::format("created output directory `{}`", opt_outDirectory));
 
   std::string csvFilename{"anonym_output.csv"};
-  if (!opt_anonymizedPrefix.empty()) {
-    csvFilename.insert(0, opt_anonymizedPrefix);
+  if (!opt_pseudonamePrefix.empty()) {
+    csvFilename.insert(0, opt_pseudonamePrefix);
   }
 
   std::ofstream outputAnonymFile{opt_outDirectory + '/' + csvFilename,
